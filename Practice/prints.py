@@ -5,6 +5,6 @@
 # >Hello World!
 # >15
 # >40
-print("Hello World!")
+print("Hello", "World!")
 print(15)
-print(25+15)
+print(15+8)

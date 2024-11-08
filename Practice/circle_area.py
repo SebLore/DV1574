@@ -1,5 +1,6 @@
 import math
-pi = math.pi
-radius = 3
-area = pi*radius
-print(f'Circle Area: {pi*radius:.2f}')
+PI =  3.14#math.pi
+
+radius = 5
+area = PI*radius
+print(PI*radius**2) # print(f'Circle Area: {PI*radius:.2f}')
