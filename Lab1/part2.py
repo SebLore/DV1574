@@ -32,11 +32,10 @@ while number_input != 0:
 
     print("Enter number: ")
     number_input = float(input())
-
 # Calculate the adjusted mean by subtracting biggest and smallest
 # values.
 # nr_of_entries is assumed to be > 3 to prevent 0 divison.
 number_mean = (sum_total - biggest - smallest) / (nr_of_entries - 2)
 
 # Print result
-print(f"Mean after removing biggest and smallest is: {number_mean:.1f}")
+print(f"Mean after removing biggest and smallest is: {number_mean:.2f}")
