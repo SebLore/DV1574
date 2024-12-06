@@ -14,7 +14,7 @@ nr_of_entries = 0
 sum_total = 0
 
 # Take user input (assumed to be a number between -inf and inf)
-print("Enter number: ")
+# print("Enter number: ")
 number_input = float(input())
 
 # Initialize smallest and biggest with initial user input
@@ -30,7 +30,7 @@ while number_input != 0:
     sum_total += number_input
     nr_of_entries += 1
 
-    print("Enter number: ")
+    # print("Enter number: ")
     number_input = float(input())
 # Calculate the adjusted mean by subtracting biggest and smallest
 # values.
