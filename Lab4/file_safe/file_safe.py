@@ -4,7 +4,6 @@ Lab4 DV1574 - File Safe
 
 Laboration 4 in the course DV1574 : Introduction to Programming with Python.
 
-
 Instructions:
 - Run the program
 - Use the main menu to create, select, or remove folders
@@ -117,10 +116,6 @@ class FileSafe:
         """Check if current working folder has files"""
         return any(os.path.isfile(f) for f in os.listdir())
 
-    def cwd_has_folders(self):
-        """Check if current working folder has folders"""
-        return any(os.path.isdir(f) for f in os.listdir())
-
     def print_cwd_folders(self):
         """Print all folders in the current working folder"""
         print(os.getcwd().split("\\")[-1].capitalize(), "folders:")
@@ -161,13 +156,14 @@ class FileSafe:
         prompts the user, then collects input line until input is empty
         """
         lines = []
+        done = False
         try:
             print(prompt)
-            while True:
+            while not done:
                 line = input()
                 if line == "ESC":
-                    break
-                if lines:
+                    done = True
+                elif lines:
                     lines.append("\n" + line)
                 else:
                     lines.append(line)
@@ -211,18 +207,21 @@ class FileSafe:
     # menu action methods
     def validate_choice(self, ok_list, print_menu):
         """Validate user input against a list of valid choices"""
-
         os.system("cls")
-        while True:
+
+        choice = ""
+        done = False
+        while not done:
             print_menu()
             sel_range = f"{ok_list[0]}-{ok_list[-1]}"
             choice = input(f"Make selection ({sel_range}): ")
             if choice in ok_list:
-                return choice
+                done = True
             else:
                 print("Invalid choice, try again.")
                 time.sleep(0.75)
                 os.system("cls")
+        return choice
 
     # main menu actions
     def main_menu_action(self, choice):
@@ -257,11 +256,6 @@ class FileSafe:
 
     def select_folder(self):
         """Change cwd to selected folder"""
-        if not self.cwd_has_folders():
-            print("No folders in current folder.")
-            time.sleep(0.75)
-            return False
-
         self.print_cwd_folders()
         folder_name = input("Folder to select: ")
         if os.path.exists(folder_name):
@@ -278,10 +272,6 @@ class FileSafe:
 
     def remove_folder(self):
         """Remove a folder from the current working folder"""
-        if not self.cwd_has_folders():
-            print("No folders in current folder.")
-            return False
-
         self.print_cwd_folders()
         folder_name = input("Folder to delete: ")
 
@@ -404,7 +394,7 @@ class FileSafe:
         """
         try:
             if not self.cwd_has_files():
-                raise OSError("No files in current folder.")
+                raise OSError("No files to append in current folder.")
 
             self.print_cwd_files()
             file_name = input("Enter name of file to append to: ")
@@ -427,7 +417,7 @@ class FileSafe:
             time.sleep(0.75)
             return True
         except (OSError, ValueError) as e:
-            print(f"An error occurred in append_file: {e}")
+            print(f"{e}")
             time.sleep(0.75)
             return False
 
