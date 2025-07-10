@@ -21,6 +21,25 @@ from cryptography.fernet import Fernet as fnt
 import cryptography.fernet
 
 
+def validate_choice(ok_list, print_menu):
+    """Validate user input against a list of valid choices"""
+    os.system("cls")
+
+    choice = ""
+    done = False
+    while not done:
+        print_menu()
+        sel_range = f"{ok_list[0]}-{ok_list[-1]}"
+        choice = input(f"Make selection ({sel_range}): ")
+        if choice in ok_list:
+            done = True
+        else:
+            print("Invalid choice, try again.")
+            time.sleep(0.75)
+            os.system("cls")
+    return choice
+
+
 # https://geeksforgeeks.org/error-handling-in-python-using-decorators/
 # decorator for error handling, cleans up code
 def error_decorator(func):
@@ -199,29 +218,29 @@ class FileSafe:
         choices = self.MAIN_MENU_CHOICES
         print_menu = self.print_main_menu
 
-        choice = self.validate_choice(choices, print_menu)
+        choice = validate_choice(choices, print_menu)
         exit = self.main_menu_action(choice)
 
         return exit
 
     # menu action methods
-    def validate_choice(self, ok_list, print_menu):
-        """Validate user input against a list of valid choices"""
-        os.system("cls")
+    # def validate_choice(self, ok_list, print_menu):
+    #     """Validate user input against a list of valid choices"""
+    #     os.system("cls")
 
-        choice = ""
-        done = False
-        while not done:
-            print_menu()
-            sel_range = f"{ok_list[0]}-{ok_list[-1]}"
-            choice = input(f"Make selection ({sel_range}): ")
-            if choice in ok_list:
-                done = True
-            else:
-                print("Invalid choice, try again.")
-                time.sleep(0.75)
-                os.system("cls")
-        return choice
+    #     choice = ""
+    #     done = False
+    #     while not done:
+    #         print_menu()
+    #         sel_range = f"{ok_list[0]}-{ok_list[-1]}"
+    #         choice = input(f"Make selection ({sel_range}): ")
+    #         if choice in ok_list:
+    #             done = True
+    #         else:
+    #             print("Invalid choice, try again.")
+    #             time.sleep(0.75)
+    #             os.system("cls")
+    #     return choice
 
     # main menu actions
     def main_menu_action(self, choice):
@@ -300,7 +319,7 @@ class FileSafe:
         while go_back is False:
             print("Current folder:", end=" ")
             print(os.getcwd().split("\\")[-1])
-            choice = self.validate_choice(choices, print_menu)
+            choice = validate_choice(choices, print_menu)
             go_back = self.file_menu_action(choice)
 
     # file menu actions
